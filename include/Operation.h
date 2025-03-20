@@ -1,15 +1,13 @@
-#include <iostream>
-#include <vector>
+#pragma once
 #include "SquareMatrix.h"
+#include <vector>
+#include <memory>
+#include <iostream>
 
 class Operation {
-
 public:
-	Operation();
-	
-	virtual SquareMatrix aplly(const std::vector<SquareMatrix>& mat) const = 0;
+    Operation();
+    virtual ~Operation() = default;
 
-private:
-	std::vector<std::shared_ptr<Operation>> operations;
-
+    virtual SquareMatrix apply(const std::vector<SquareMatrix>& mat) const = 0;
 };
