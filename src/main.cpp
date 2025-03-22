@@ -18,7 +18,7 @@ int main(){
 		}
 
 		else if (command == "exit") {
-			std::cout << "Goodbye!/n";
+			std::cout << "Goodbye!\n";
 			break;
 		}
         else if (command == "eval") {
@@ -28,13 +28,14 @@ int main(){
             int requiredMatrices = manager.getRequiredMatrixCount(index); 
 
             std::vector<SquareMatrix> matrices;
-            std::cout << "please write " << requiredMatrices << " matrix" << std::endl;
+            std::cout << "please enter " << requiredMatrices << " metrices:" << std::endl;
             for (int i = 0; i < requiredMatrices; ++i) {
+                std::cout<< "Matrix " << i + 1 << ":" << std::endl;
                 SquareMatrix matrix(size);
+                matrix.createMatrix();
                 matrices.push_back(matrix);
             }
 
-            // Execute the operation and print result
             SquareMatrix result = manager.execute(index, matrices);
             result.printMatrix();
             std::cout << std::endl;

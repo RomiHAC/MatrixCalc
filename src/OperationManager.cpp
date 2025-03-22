@@ -60,11 +60,9 @@ SquareMatrix OperationManager::execute(int index, const std::vector<SquareMatrix
     std::cout << std::endl << operationNames.at(index) << "(\n";// Print operation name
     matrices[0].printMatrix();
     std::cout << ") =\n"; 
+
     return operations[index]->apply(matrices);
 }
-
-
-
 
 void OperationManager::listOperations() const {
     std::cout << "List of available matrix operations:\n";
@@ -114,7 +112,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
     }
     else if (opt == "scal")
     {
-        double val;
+        int val;
         std::cin >> val;
        
          std::string opName = "Scal " + std::to_string(val);

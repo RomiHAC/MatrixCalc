@@ -12,3 +12,7 @@ SquareMatrix Transpose::apply(const std::vector<SquareMatrix>& mat) const {
 
     return SquareMatrix(transposed);  // Return the new transposed matrix
 }
+
+int Transpose::getNumMatrices() const {
+    return 1;
+}
