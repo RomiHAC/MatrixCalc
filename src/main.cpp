@@ -48,7 +48,7 @@ int main(){
         else {
             std::cout << "Unknown command. Type 'help' for a list of commands.\n";
         }
-	}
+     }
 
 }
 
