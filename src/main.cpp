@@ -1,17 +1,12 @@
 #include "Operation.h" 
 #include "OperationManager.h" 
-#include "SquareMatrix.h"
-#include "Id.h"
-#include "Transpose.h"
-#include "Scal.h"
 #include "string"
 
-void printHelp();
+
 int main(){
 	std::string command;
 	OperationManager manager;
-	manager.addOperation(std::make_shared<Id>(), "id");
-	manager.addOperation(std::make_shared<Transpose>(), "tran");
+   
 
 	while (true) {
         manager.listOperations();
@@ -19,7 +14,7 @@ int main(){
 		std::cin >> command;
          
 		if (command == "help") {
-            printHelp();
+            manager.getHelp().printHelp();
 		}
 
 		else if (command == "exit") {
@@ -30,19 +25,24 @@ int main(){
             int index, size;
             std::cin >> index >> size;
 
-            SquareMatrix matrix(size);
-            std::vector<SquareMatrix> matrices = { matrix };
+            int requiredMatrices = manager.getRequiredMatrixCount(index); 
+
+            std::vector<SquareMatrix> matrices;
+            std::cout << "please write " << requiredMatrices << " matrix" << std::endl;
+            for (int i = 0; i < requiredMatrices; ++i) {
+                SquareMatrix matrix(size);
+                matrices.push_back(matrix);
+            }
+
             // Execute the operation and print result
             SquareMatrix result = manager.execute(index, matrices);
-            result.printMatrix(); // Assuming SquareMatrix has a print() function
-			std::cout << std::endl;
-
+            result.printMatrix();
+            std::cout << std::endl;
         }
-        else if (command == "scal") {
-            int val;
-            std::cin >> val;
-            // Create a new Scal operation with the given scalar value
-            manager.addOperation(std::make_shared<Scal>(val), "Scal " + std::to_string(val)); // Pass val to Scal
+
+       
+        else if (manager.CheckOptAndAdd(command)) {
+           // Pass the command 
         }
 
         else {
@@ -53,14 +53,3 @@ int main(){
 }
 
 
-void printHelp() {
-    std::cout << "\n1. eval(num, n) - Calculates the function for 'num' index using an 'nXn' matrix from the user." << std::endl;
-    std::cout << "2. scal(val) - Multiplies the matrix from 'eval' by the scalar 'val'." << std::endl;
-    std::cout << "3. add(num1, num2) - Adds the results of functions 'num1' and 'num2' (element-wise)." << std::endl;
-    std::cout << "4. sub(num1, num2) - Subtracts function 'num2' from 'num1' (element-wise)." << std::endl;
-    std::cout << "5. comp(num1, num2) - Applies function 'num1' first, then 'num2' on the result." << std::endl;
-    std::cout << "6. del(num) - Deletes function 'num' and updates the list." << std::endl;
-    std::cout << "7. help - Displays a list of commands with brief descriptions." << std::endl;
-    std::cout << "8. exit - Prints 'Goodbye' and exits the program." << std::endl;
-    std::cout << std::endl;
-}

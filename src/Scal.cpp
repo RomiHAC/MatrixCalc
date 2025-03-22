@@ -1,7 +1,7 @@
 #include "Scal.h"
 
 // Constructor to initialize the scalar value
-Scal::Scal(int scalar) : scalar(scalar) {}
+Scal::Scal(const int scalar) : scalar(scalar) {}
 
 // Implement the apply method for scalar multiplication
 SquareMatrix Scal::apply(const std::vector<SquareMatrix>& mat) const {

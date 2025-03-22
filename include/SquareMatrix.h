@@ -8,7 +8,9 @@ public:
     SquareMatrix(int n);
     SquareMatrix(const std::vector<std::vector<int>>& mat);
 
-    std::vector<std::vector<int>> getMatrix() const;
+   
+    const std::vector<std::vector<int>>& getMatrix() const; // for constant access
+    std::vector<std::vector<int>>& getMatrix(); // for non-constant access
 
     void printMatrix() const;
 

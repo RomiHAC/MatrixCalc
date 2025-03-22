@@ -14,7 +14,13 @@ SquareMatrix::SquareMatrix(const std::vector<std::vector<int>>& mat)
     : size(mat.size()), matrix(mat) {
 }
 
-std::vector<std::vector<int>> SquareMatrix::getMatrix() const {
+
+
+const std::vector<std::vector<int>>& SquareMatrix::getMatrix() const {
+    return matrix;
+}
+
+std::vector<std::vector<int>>& SquareMatrix::getMatrix() {
     return matrix;
 }
 

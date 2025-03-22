@@ -1,10 +1,10 @@
 #include "Operation.h"
 
 
-class Help : public Operation {
+class Help {
 public:
 
-	void Expl();
+	void printHelp() const;
 
 private:
 };
