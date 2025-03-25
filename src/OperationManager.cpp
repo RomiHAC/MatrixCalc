@@ -133,7 +133,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
         // Retrieve the operations based on indices num1 and num2
         std::shared_ptr<Operation> op1 = operations[num1];
         std::shared_ptr<Operation> op2 = operations[num2];
-        int num_matrices = std::max(requiredMatrices[num1], requiredMatrices[num2]);
+        int num_matrices = (requiredMatrices[num1] + requiredMatrices[num2]);
 
 
         if (opt == "add") {
@@ -144,7 +144,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<AddOperation>(op1, op2), opName);
-            num_matrices++;
+          //  num_matrices++;
             requiredMatrices.push_back(num_matrices);
 
         }
@@ -155,7 +155,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<SubOperation>(op1, op2), opName);
-            num_matrices++;
+       //num_matrices++;
             requiredMatrices.push_back(num_matrices);
         }
         else if (opt == "comp") {
