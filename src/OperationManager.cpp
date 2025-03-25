@@ -165,6 +165,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<CompOperation>(op1, op2), opName);
+            num_matrices = std::max(requiredMatrices[num1],requiredMatrices[num2]);
             requiredMatrices.push_back(num_matrices);
 
         }
