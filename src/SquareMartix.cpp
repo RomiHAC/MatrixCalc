@@ -1,34 +1,20 @@
 #include "SquareMatrix.h"
 
-
 SquareMatrix::SquareMatrix(int n)
     : size(n), matrix(n, std::vector<int>(n, 0)) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            matrix[i][j] = 0;
-        }
-    }
 }
 
-void SquareMatrix::createMatrix() { 
-    std::cout << "\nEnter " << size << "x" << size << " values for the matrix:\n";
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            std::cin >> matrix[i][j];
-        }
-    }
+void SquareMatrix::createMatrix() {
+    std::cout << "\nEnter a " << size << "x" << size << " matrix:\n";
+    std::cin >> *this;  
 }
 
 SquareMatrix::SquareMatrix(const std::vector<std::vector<int>>& mat)
     : size(mat.size()), matrix(mat) {
 }
 
-//std::vector<std::vector<int>> SquareMatrix::getMatrix() const {
-//    return matrix;
-//}
-
 const std::vector<std::vector<int>>& SquareMatrix::getMatrix() const {
-    return matrix;  
+    return matrix;
 }
 
 void SquareMatrix::setMatrix(const std::vector<std::vector<int>>& newMatrix) {
@@ -38,17 +24,7 @@ void SquareMatrix::setMatrix(const std::vector<std::vector<int>>& newMatrix) {
     matrix = newMatrix;
 }
 
-void SquareMatrix::printMatrix() const {
-    for (const auto& row : matrix) {
-        for (int val : row) {
-            std::cout << val << " ";
-        }
-        std::cout << std::endl;
-    }
-}
-
 SquareMatrix SquareMatrix::operator+(const SquareMatrix& other) const {
-    if (size != other.size) throw std::invalid_argument("Matrix sizes must be equal for addition.");
 
     SquareMatrix result(size);
     for (int i = 0; i < size; i++)
@@ -59,7 +35,6 @@ SquareMatrix SquareMatrix::operator+(const SquareMatrix& other) const {
 }
 
 SquareMatrix SquareMatrix::operator-(const SquareMatrix& other) const {
-    if (size != other.size) throw std::invalid_argument("Matrix sizes must be equal for subtraction.");
 
     SquareMatrix result(size);
     for (int i = 0; i < size; i++)
@@ -70,7 +45,6 @@ SquareMatrix SquareMatrix::operator-(const SquareMatrix& other) const {
 }
 
 SquareMatrix SquareMatrix::operator*(const SquareMatrix& other) const {
-    if (size != other.size) throw std::invalid_argument("Matrix sizes must be equal for multiplication.");
 
     SquareMatrix result(size);
     for (int i = 0; i < size; i++)
