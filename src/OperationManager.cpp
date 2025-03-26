@@ -165,7 +165,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<CompOperation>(op1, op2), opName);
-            num_matrices = std::max(requiredMatrices[num1],requiredMatrices[num2]);
+            num_matrices--;
             requiredMatrices.push_back(num_matrices);
 
         }
@@ -192,7 +192,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
 
 int OperationManager::getRequiredMatrixCount(int index) {
     if (index < 0 || index >= static_cast<int>(operations.size())) {
-        throw std::out_of_range("Invalid operation index.");
+        //throw std::out_of_range("Invalid operation index.");
     }
     return requiredMatrices[index];
 }
