@@ -6,7 +6,6 @@ OperationManager::OperationManager()
     requiredMatrices.push_back(1);
     addOperation(std::make_shared<Transpose>(), "tran");
     requiredMatrices.push_back(1);
-
 }
 
 const Help& OperationManager::getHelp()  
@@ -18,10 +17,9 @@ const Help& OperationManager::getHelp()
 int OperationManager::addOperation(std::shared_ptr<Operation> op, const std::string& name) {
     int index = operations.size();
     operations.push_back(op);
-    operationNames[index] = name; // Store the name
+    operationNames[index] = name; 
     return index;
 }
-
 
 void OperationManager::DeleteFunction(const int num) {
     if (operationNames.find(num) == operationNames.end()) {
@@ -48,18 +46,19 @@ void OperationManager::DeleteFunction(const int num) {
     operationNames = std::move(newOperationNames);
 }
 
-
-
-
-
 // Execute an operation by its index
 SquareMatrix OperationManager::execute(int index, const std::vector<SquareMatrix>& matrices) {
     if (index < 0 || index >= static_cast<int>(operations.size())) {
         throw std::out_of_range("Invalid operation index.");
     }
-    std::cout << std::endl << operationNames.at(index) << "(\n";// Print operation name
-    matrices[0].printMatrix();
-    std::cout << ") =\n"; 
+
+    std::cout << std::endl << operationNames.at(index); // Print operation name
+
+    for (const auto& matrix : matrices) {
+        std::cout << "(\n" << matrix << ")";
+    }
+    std::cout << " =\n";
+
 
     return operations[index]->apply(matrices);
 }
@@ -93,24 +92,7 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
     std::string opt;
     iss >> opt;
 
-    if (opt == "id") {
-        if (OperationExists("id")) {
-            std::cerr << "Error: Operation 'id' already exists.\n";
-            return false;
-        }
-        addOperation(std::make_shared<Id>(), "id");
-        requiredMatrices.push_back(1);
-    }
-
-    else if (opt == "tran") {
-        if (OperationExists("tran")) {
-            std::cerr << "Error: Operation 'tran' already exists.\n";
-            return false;
-        }
-        addOperation(std::make_shared<Id>(), "tran");
-        requiredMatrices.push_back(1);
-    }
-    else if (opt == "scal")
+    if (opt == "scal")
     {
         int val;
         std::cin >> val;
@@ -144,7 +126,6 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<AddOperation>(op1, op2), opName);
-          //  num_matrices++;
             requiredMatrices.push_back(num_matrices);
 
         }
@@ -155,7 +136,6 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
                 return false;
             }
             addOperation(std::make_shared<SubOperation>(op1, op2), opName);
-       //num_matrices++;
             requiredMatrices.push_back(num_matrices);
         }
         else if (opt == "comp") {
@@ -191,9 +171,9 @@ bool OperationManager::CheckOptAndAdd(const std::string& command)
 
 
 int OperationManager::getRequiredMatrixCount(int index) {
-    if (index < 0 || index >= static_cast<int>(operations.size())) {
-        //throw std::out_of_range("Invalid operation index.");
-    }
     return requiredMatrices[index];
 }
 
+int OperationManager::getOperationsCount() const {
+    return operations.size();
+}
