@@ -6,42 +6,46 @@
 int main(){
 	std::string command;
 	OperationManager manager;
-   
+
 
 	while (true) {
         manager.listOperations();
-		std::cout << "Enter command ('help' for list of available commands) :";
-		std::cin >> command;
-         
+        std::cout << "Enter command ('help' for list of available commands) :";
+        std::cin >> command;
+
 		if (command == "help") {
             manager.getHelp().printHelp();
 		}
 
 		else if (command == "exit") {
-			std::cout << "Goodbye!\n";
+			std::cout << "\nGoodbye!\n";
 			break;
 		}
         else if (command == "eval") {
             int index, size;
             std::cin >> index >> size;
 
-            int requiredMatrices = manager.getRequiredMatrixCount(index); 
+            // Check if index is within valid range
+            if (index < 0 || index >= manager.getOperationsCount()) {
+                std::cout << "Invalid index! Please enter a valid operation index.\n";
+                continue;  
+            }
+
+            int requiredMatrices = manager.getRequiredMatrixCount(index);
 
             std::vector<SquareMatrix> matrices;
-            std::cout << "please enter " << requiredMatrices << " metrices:" << std::endl;
+            if (requiredMatrices > 1)
+                std::cout << "\nplease enter " << requiredMatrices << " matrices:" << std::endl;
             for (int i = 0; i < requiredMatrices; ++i) {
-                std::cout<< "Matrix " << i + 1 << ":" << std::endl;
                 SquareMatrix matrix(size);
                 matrix.createMatrix();
                 matrices.push_back(matrix);
             }
 
             SquareMatrix result = manager.execute(index, matrices);
-            result.printMatrix();
-            std::cout << std::endl;
+            std::cout << result << std::endl;
         }
 
-       
         else if (manager.CheckOptAndAdd(command)) {
            // Pass the command 
         }
