@@ -25,9 +25,7 @@ SquareMatrix CompOperation::apply(const std::vector<SquareMatrix>& matrices) con
     return result;
 }
 
-
-
-
 int CompOperation::getNumMatrices() const {
     return std::max(op1->getNumMatrices(), op2->getNumMatrices());
 }
+
