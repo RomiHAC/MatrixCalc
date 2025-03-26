@@ -5,10 +5,6 @@ SubOperation::SubOperation(std::shared_ptr<Operation> op1, std::shared_ptr<Opera
 }
 
 SquareMatrix SubOperation::apply(const std::vector<SquareMatrix>& matrices) const {
-    if (matrices.size() < getNumMatrices()) {
-        throw std::invalid_argument("Error: SubOperation requires at least " + std::to_string(getNumMatrices()) + " matrices.");
-    }
-
     int numOp1 = op1->getNumMatrices();
     int numOp2 = op2->getNumMatrices();
 
@@ -24,4 +20,3 @@ SquareMatrix SubOperation::apply(const std::vector<SquareMatrix>& matrices) cons
 int SubOperation::getNumMatrices() const {
     return op1->getNumMatrices() + op2->getNumMatrices();
 }
-
