@@ -17,13 +17,6 @@ const std::vector<std::vector<int>>& SquareMatrix::getMatrix() const {
     return matrix;
 }
 
-void SquareMatrix::setMatrix(const std::vector<std::vector<int>>& newMatrix) {
-    if (newMatrix.size() != size) {
-        throw std::invalid_argument("Matrix size mismatch.");
-    }
-    matrix = newMatrix;
-}
-
 SquareMatrix SquareMatrix::operator+(const SquareMatrix& other) const {
 
     SquareMatrix result(size);
@@ -63,10 +56,6 @@ SquareMatrix SquareMatrix::operator*(int scalar) const {
         }
     }
     return result;
-}
-
-bool SquareMatrix::operator==(const SquareMatrix& other) const {
-    return matrix == other.matrix;
 }
 
 std::istream& operator>>(std::istream& in, SquareMatrix& matrix) {
